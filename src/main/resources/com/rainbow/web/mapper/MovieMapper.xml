@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.web.mapper.MovieMapper"> 
+	<insert id="insert" parameterType="com.rainbow.web.movie.MovieDTO"> 
+		INSERT INTO Movie( rating, title, genre, open_date, grade, runningtime,director,actor,content,image)
+		VALUES( #{rating}, #{title}, #{genre}, #{openDate}, #{grade}, #{runningtime}, #{director}, #{actor}, #{content}, #{image});
+	</insert>
+	
+	<select id="selectList" parameterType="com.rainbow.web.movie.MovieDTO" resultType="com.rainbow.web.movie.MovieDTO">
+		SELECT movie_seq AS movieSeq, rating, title, genre, open_date AS openDate, grade, runningtime,director,actor,content,image 
+		FROM Movie
+		ORDER BY rating DESC
+		LIMIT #{start}, #{end}
+	</select>
+	
+	<select id="selectByName" parameterType="com.rainbow.web.movie.MovieDTO" resultType="com.rainbow.web.movie.MovieDTO"> 
+		SELECT movie_seq AS movieSeq, rating, title, genre, open_date AS openDate, grade, runningtime,director,actor,content,image 
+		FROM Movie
+		WHERE ${title} LIKE CONCAT('%',#{title},'%')
+	</select>
+		
+	<select id="selectBySearch" parameterType="com.rainbow.web.movie.MovieDTO" resultType="com.rainbow.web.movie.MovieDTO"> 
+		SELECT movie_seq AS movieSeq, rating, title, genre, open_date AS openDate, grade, runningtime,director,actor,content,image 
+		FROM Movie
+		WHERE ${keyField} LIKE CONCAT('%',#{keyWord},'%') 
+		ORDER BY rating DESC
+		LIMIT #{start}, #{end}
+	</select>
+	
+	<select id="selectBySeq" parameterType="com.rainbow.web.movie.MovieDTO" resultType="com.rainbow.web.movie.MovieDTO"> 
+		select movie_seq AS movieSeq, rating, title, genre, open_date AS openDate, grade, runningtime,director,actor,content,image 
+		from Movie
+		WHERE movie_seq = ${movieSeq} 
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT COUNT(*)
+		FROM Movie
+	</select>
+	
+	<select id="countBySearch" parameterType="com.rainbow.web.movie.MovieDTO" resultType="int">
+	    SELECT COUNT(*)
+		FROM Movie
+		WHERE ${keyField} LIKE CONCAT('%',#{keyWord},'%')
+	</select>
+	
+	<update id="update" parameterType="com.rainbow.web.movie.MovieDTO">
+	UPDATE Movie SET rating=#{rating}, title=#{title}, genre=#{genre}, open_date=#{openDate}, grade=#{grade}, runningtime=#{runningtime},director=#{director},actor=#{actor},content=#{content},image=#{image}
+	WHERE movie_seq = #{movieSeq}
+	</update>
+	
+	<delete id="delete" parameterType="com.rainbow.web.movie.MovieDTO">
+	DELETE FROM Movie
+	WHERE movie_seq = #{movieSeq}
+	</delete>
+	
+</mapper>

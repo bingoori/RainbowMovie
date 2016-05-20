@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.web.mapper.ReplyMapper"> 
+	<insert id="insert" parameterType="com.rainbow.web.reply.ReplyDTO"> 
+		INSERT INTO Reply(writer_name,reg_time, reply_content, movie_seq)
+		VALUES (#{writerName}, SYSDATE(), #{replyContent}, #{movieSeq});
+	</insert>
+	
+	<select id="selectBySeq" parameterType="com.rainbow.web.reply.ReplyDTO" resultType="com.rainbow.web.reply.ReplyDTO"> 
+	    SELECT 
+			reply_seq AS replySeq,
+			writer_name AS writerName,
+			DATE_FORMAT(reg_time,'%Y-%m-%d %T') AS regTime,
+			reply_content AS replyContent,
+			movie_seq AS movieSeq
+		FROM Reply 
+		WHERE movie_seq = #{movieSeq};
+	</select>
+	
+	<select id="count" parameterType="com.rainbow.web.reply.ReplyDTO" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM Reply
+	    WHERE movie_seq = #{movieSeq};
+	</select>
+	
+	<update id="update" parameterType="com.rainbow.web.reply.ReplyDTO">
+	    UPDATE Reply SET writer_name =#{writerName} , reply_content = #{replyContent}
+		WHERE writer_name = #{writerName};
+	</update>
+	
+	<delete id="delete" parameterType="com.rainbow.web.reply.ReplyDTO">
+	    DELETE FROM Reply WHERE reply_seq = #{replySeq};
+	</delete>
+	
+</mapper>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.web.mapper.VodMapper">
+	<insert id="addMovie" parameterType="com.rainbow.app.vod.VodDTO">
+		INSERT INTO
+		Vod(
+		vod_name,
+		vod_content_title,
+		vod_content,
+		vod_price,
+		vod_category,
+		vod_time,
+		vod_rating,
+		vod_url,
+		vod_image,
+		vod_date,
+		vod_free,
+		vod_grade,
+		vod_actor,
+		vod_director,
+		vod_country)
+		values(
+		#{vodName},
+		#{vodContentTitle},
+		#{vodContent},
+		#{vodPrice},
+		#{vodCategory},
+		#{vodTime},
+		#{vodRating},
+		#{vodUrl},
+		#{vodImage},
+		#{vodDate},
+		#{vodFree},
+		#{vodGrade},
+		#{vodActor},
+		#{vodDirector},
+		#{vodCountry})
+	</insert>
+	
+
+	<select id="VodSearch" resultType="com.rainbow.app.vod.VodDTO"
+		parameterType="string">
+		SELECT
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		WHERE vod_name like CONCAT('%', #{vodName}, '%')
+	</select>
+
+	<select id="getVodList" resultType="com.rainbow.app.vod.VodDTO">
+		SELECT
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		ORDER BY vodName
+		LIMIT #{startNum}, #{endNum}
+	</select>
+
+	<select id="getByVodName" parameterType="string"
+		resultType="com.rainbow.app.vod.VodDTO">
+		SELECT
+		vod_seq AS vodSeq,
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS
+		vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time
+		AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS
+		vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS
+		vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod WHERE vod_name = #{vodName}
+	</select>
+
+	<select id="vodLogin" parameterType="com.rainbow.web.member.MemberDTO"
+		resultType="com.rainbow.web.member.MemberDTO">
+		SELECT
+		id,
+		password,
+		name,
+		birth,
+		addr,
+		email,
+		point,
+		grade
+		FROM Member
+		where id = #{id} and password = #{password}
+	</select>
+
+<select id="getAtLeastVodLimit" resultType="com.rainbow.app.vod.VodDTO">
+  		
+		SELECT		
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS
+		vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time
+		AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		WHERE DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &lt;= 180
+		order by vod_date
+		limit 3
+	 
+	</select>
+	<select id="getCommonVodLimit" resultType="com.rainbow.app.vod.VodDTO">
+		SELECT		
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time
+		AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		WHERE DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &lt; 365 AND DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &gt; 180
+		order by vod_date
+		limit 3
+	</select>
+	 
+
+	<select id="getFreeVodLimit" resultType="com.rainbow.app.vod.VodDTO">
+		SELECT		
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS
+		vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time
+		AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS
+		vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS
+		vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		WHERE DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &gt; 365
+		order by vod_date
+		limit 3
+	</select>
+<select id="getAtLeastVodUn" resultType="com.rainbow.app.vod.VodDTO">
+  		
+		SELECT		
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS
+		vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time
+		AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		WHERE DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &lt;= 180
+		order by vod_date
+		limit 9
+	 
+	</select>
+	<select id="getCommonVodUn" resultType="com.rainbow.app.vod.VodDTO">
+		SELECT		
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time
+		AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		WHERE DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &lt; 365 AND DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &gt; 180
+		order by vod_date
+		limit 9
+	</select>
+	 
+
+	<select id="getFreeVodUn" resultType="com.rainbow.app.vod.VodDTO">
+		SELECT		
+		vod_name AS vodName,
+		vod_content_title AS vodContentTitle,
+		vod_content AS
+		vodContent,
+		vod_price AS vodPrice,
+		vod_category AS vodCategory,
+		vod_time
+		AS vodTime,
+		vod_rating AS vodRating,
+		vod_url AS vodUrl,
+		vod_image AS
+		vodImage,
+		vod_date AS vodDate,
+		vod_free AS vodFree,
+		vod_grade AS
+		vodGrade,
+		vod_actor AS vodActor,
+		vod_director AS vodDirector,
+		vod_country AS vodCountry
+		FROM Vod
+		WHERE DATEDIFF(NOW(),DATE_FORMAT(vod_date,'%Y-%m-%d')) &gt; 365
+		order by vod_date
+		limit 9
+	</select>
+	<select id="VodCount" resultType="int">
+		SELECT COUNT(*) FROM Vod
+	</select>
+
+	<update id="VodUpdate" parameterType="com.rainbow.app.vod.VodDTO">
+		UPDATE Vod
+		set 
+		vod_name = #{vodName},
+		vod_content_title = #{vodContentTitle},
+		vod_content = #{vodContent},
+		vod_price = #{vodPrice},
+		vod_date = #{vodDate},
+		vod_category = #{vodCategory},
+		vod_time = #{vodTime},
+		vod_rating = #{vodRating},
+		vod_url = #{vodUrl},
+		vod_image = #{vodImage},
+		vod_free = #{vodFree},
+		vod_grade = #{vodGrade},
+		vod_actor = #{vodActor},
+		vod_director = #{vodDirector},
+		vod_country = #{vodCountry}
+		WHERE vod_seq = #{vodSeq}
+	</update>
+
+	<delete id="VodDelete" parameterType="com.rainbow.app.vod.VodDTO">
+		DELETE FROM Vod where vod_name = #{vodName}
+	</delete>
+
+</mapper>

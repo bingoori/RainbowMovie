@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.web.mapper.ReserveSeatMapper"> 
+	<insert id="insert" parameterType="com.rainbow.web.reserveSeat.ReserveSeatDTO"> 
+		INSERT INTO ReserveSeat(movie_title,reserve_date,begin_time,seat,id,price)
+		VALUES (#{movieTitle},#{reserveDate},#{beginTime},#{seat},#{id},#{price})
+	</insert>
+	
+	<select id="selectList" resultType="com.rainbow.web.reserveSeat.ReserveSeatDTO">
+		SELECT
+			reserve_seq As reserveSeq,
+			movie_title AS movieTitle,
+			screen_number AS screenNumber,
+			reserve_date AS reserveDate,
+			begin_time AS beginTime,
+			seat
+		FROM ReserveSeat
+	</select>
+	
+	<select id="selectByReserve" parameterType="com.rainbow.web.reserveSeat.ReserveSeatDTO" resultType="com.rainbow.web.reserveSeat.ReserveSeatDTO"> 
+		SELECT
+			reserve_seq As reserveSeq,
+			movie_title AS movieTitle,
+			screen_number AS screenNumber,
+			reserve_date AS reserveDate,
+			begin_time AS beginTime,
+			seat,
+			price
+		FROM ReserveSeat
+		WHERE 
+			movie_title = #{movieTitle} AND
+			reserve_date = #{reserveDate} AND
+			begin_time = #{beginTime} AND 
+			id = #{id}
+	</select>
+	
+	<select id="selectByReserveSeq" parameterType="com.rainbow.web.reserveSeat.ReserveSeatDTO" resultType="com.rainbow.web.reserveSeat.ReserveSeatDTO"> 
+		SELECT
+			reserve_seq As reserveSeq,
+			movie_title AS movieTitle,
+			screen_number AS screenNumber,
+			reserve_date AS reserveDate,
+			begin_time AS beginTime,
+			seat
+		FROM ReserveSeat
+		WHERE reserve_seq = #{reserveSeq}
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM ReserveSeat 
+	</select>
+	
+	<update id="update" parameterType="com.rainbow.web.reserveSeat.ReserveSeatDTO">
+		UPDATE ReserveSeat
+		SET seat = #{seat}
+		WHERE reserve_seq = #{reserveSeq}
+	</update>
+	
+	<!-- 좌석취소시 정보삭제 -->
+	<delete id="deleteBySeat" parameterType="com.rainbow.web.reserveSeat.ReserveSeatDTO">
+		DELETE FROM ReserveSeat
+			WHERE 
+			movie_title = #{movieTitle} AND
+			reserve_date = #{reserveDate} AND
+			begin_time = #{beginTime} AND 
+			id = #{id} AND
+			seat = #{seat}
+	</delete>
+	
+	<!-- 구매완료시 정보삭제 -->
+	<delete id="delete" parameterType="com.rainbow.web.reserveSeat.ReserveSeatDTO">
+		DELETE FROM ReserveSeat
+			WHERE 
+			movie_title = #{movieTitle} AND
+			reserve_date = #{reserveDate} AND
+			begin_time = #{beginTime} AND 
+			id = #{id}
+			
+	</delete>
+</mapper>

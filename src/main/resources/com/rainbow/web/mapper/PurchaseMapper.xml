@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.web.mapper.PurchaseMapper"> 
+	<insert id="insert" parameterType="com.rainbow.web.purchase.PurchaseDTO"> 
+		INSERT INTO Purchase (member_id, movie_title, screen_number, begin_time, reserve_seat, purchase_price, date, adult_count, student_count) 
+		VALUES (#{memberId}, #{movieTitle}, #{screenNumber}, #{beginTime}, #{reserveSeat}, #{purchasePrice}, #{date}, #{adultCount}, #{studentCount})
+	</insert>
+	
+	<select id="selectList" resultType="com.rainbow.web.purchase.PurchaseDTO">
+	    SELECT purchase_seq AS purchaseSeq, member_id AS memberId, movie_title AS movieTitle, screen_number AS screenNumber, begin_time AS beginTime,
+	   		reserve_seat AS reserveSeat, purchase_price AS purchasePrice, date, adult_count AS adultCount, student_count AS studentCount
+	    FROM Purchase
+	</select>
+	
+	<select id="selectByMemberId" parameterType="com.rainbow.web.purchase.PurchaseDTO" resultType="com.rainbow.web.purchase.PurchaseDTO">
+	    SELECT purchase_seq AS purchaseSeq, member_id AS memberId, movie_title AS movieTitle, screen_number AS screenNumber, begin_time AS beginTime,
+	   		reserve_seat AS reserveSeat, purchase_price AS purchasePrice, date, adult_count AS adultCount, student_count AS studentCount, image
+	    FROM Purchase, Movie WHERE Purchase.movie_title = Movie.title and member_id = #{memberId} ORDER BY date DESC LIMIT #{start}, #{end}
+	</select>
+	
+	<select id="selectByPurchaseSeq" parameterType="com.rainbow.web.purchase.PurchaseDTO" resultType="com.rainbow.web.purchase.PurchaseDTO">
+	    SELECT purchase_seq AS purchaseSeq, member_id AS memberId, movie_title AS movieTitle, screen_number AS screenNumber, begin_time AS beginTime,
+	   		reserve_seat AS reserveSeat, purchase_price AS purchasePrice, date, adult_count AS adultCount, student_count AS studentCount
+	    FROM Purchase WHERE purchase_seq = #{purchaseSeq}
+	</select>
+	
+	<select id="selectScreenNumber" parameterType="com.rainbow.web.purchase.PurchaseDTO" resultType="com.rainbow.web.purchase.PurchaseDTO">
+	    SELECT screen AS screenNumber
+	    FROM Movie WHERE title = #{movieTitle}
+	</select>
+	
+	<select id="selectByReserve" parameterType="com.rainbow.web.purchase.PurchaseDTO" resultType="com.rainbow.web.purchase.PurchaseDTO"> 
+		SELECT
+			purchase_seq As purchaseSeq,
+			movie_title AS movieTitle,
+			screen_number AS screenNumber,
+			date,
+			begin_time AS beginTime,
+			reserve_seat AS reserveSeat
+		FROM Purchase
+		WHERE 
+			movie_title = #{movieTitle} AND
+			date = #{date} AND
+			begin_time = #{beginTime}
+	</select>
+	
+	<select id="count" resultType="int">
+	    SELECT count(*) FROM Purchase
+	</select>
+	
+	<select id="countById" parameterType="com.rainbow.web.purchase.PurchaseDTO" resultType="int">
+	    SELECT count(*) FROM Purchase WHERE member_id = #{memberId}
+	</select>
+	
+	<update id="update" parameterType="com.rainbow.web.purchase.PurchaseDTO">
+	    UPDATE Purchase 
+	    SET movie_title = #{movieTitle}, screen_number = #{screenNumber}, begin_time = #{beginTime}, reserve_seat = #{reserveSeat}, 
+	    	purchase_price = #{purchasePrice}, date = #{date}, adult_count = #{adultCount}, student_count = #{studentCount}
+	    WHERE purchase_seq = #{purchaseSeq}
+	</update>
+	
+	<delete id="delete" parameterType="com.rainbow.web.purchase.PurchaseDTO">
+	    DELETE FROM Purchase WHERE purchase_seq = #{purchaseSeq}
+	</delete>
+</mapper>

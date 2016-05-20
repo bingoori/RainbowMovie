@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.web.mapper.BuyMapper">
+     	
+     	
+     	<insert id="addBuy" parameterType="hashmap"> 
+		INSERT INTO Buy(buy_date,member_seq,vod_name)
+		VALUES(now(),#{memSeq},#{vodTitle});
+	</insert>
+
+     	<select id="getBuy" resultType="com.rainbow.app.buy.BuyDTO" parameterType="int">
+	    SELECT 
+    		buy_seq AS buySeq,
+    		member_seq AS memberSeq,
+    		vod_name AS vodName,
+   			DATE_FORMAT(buy_date,'%Y-%m-%d %T') AS buyDate
+    	FROM Buy
+    	WHERE member_seq = #{memberSeq}
+	</select>
+	
+	
+</mapper>
