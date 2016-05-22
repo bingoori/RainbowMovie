@@ -6,7 +6,7 @@
    <div align="center" >
       <h3>우성두의 포트폴리오</h3>
       
-      <iframe width="100%" height="315" src="https://www.youtube.com/embed/f7INaPABeao?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
+      <iframe width="80%" height="350" src="https://www.youtube.com/embed/f7INaPABeao?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
       <p>테스트용 Id : rainbow pw :1 </p>
       <p>관리자용 Id : admin pw :1 </p>
       <p><a id="mobileURL" href="#">모바일 앱 용 웹페이지 URL</a></p>     
