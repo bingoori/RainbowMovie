@@ -62,10 +62,8 @@
 		.test {
 			position: relative;
 			background: #FFF;
-			padding: 20px;
-			width: 70%;
-			height: 500px;
-			margin: 20px auto;
+			width: 100%;
+			height: 100%;
 		}
 	</style>
 </head>

@@ -44,9 +44,6 @@ var vodMain = {
 				$('#buyBtn').click(function(e) {
 					e.preventDefault(); 
 					$.ajax(context+'/buy/buyIdCheck',{
-						data : {
-							vodTitle : vodName
-						}, 
 						dataType : 'json',
 						async : true,
 						success : function(data) {  
