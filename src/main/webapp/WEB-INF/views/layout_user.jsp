@@ -119,6 +119,7 @@
 	<c:when test="${sessionScope.user.id == 'admin'}"> <!-- 관리자 로그인 성공 시 헤더 -->
 		<script type="text/javascript">
 			$(function() {
+				$.magnificPopup.close();
 				var logout_header = '<li><span class="sub-nav-toggle plus"></span>\
 					<a href="${context}/admin/input_form" id="addVod">ADD VOD</a>\
 					</li>\
@@ -142,6 +143,7 @@
 	<c:when test="${sessionScope.user.id != null}"> <!-- 회원 로그인 성공 시 헤더 -->
 	   <script type="text/javascript">
 	      $(function() {
+	    		$.magnificPopup.close();
 	         var logout_header =
 	            '<li id="movieList"><span class="sub-nav-toggle plus"></span>'
 	            +      '<a href="${context}/movie/movie_list">Movies</a>'
