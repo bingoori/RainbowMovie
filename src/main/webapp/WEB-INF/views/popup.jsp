@@ -30,6 +30,6 @@
    
    $('#mobileURL').click(function(e) {
       e.preventDefault();
-      location.href = "http://ec2-52-79-161-93.ap-northeast-2.compute.amazonaws.com/mobile";
+      location.href = "http://bingoori.net/mobile";
    });
 </script>

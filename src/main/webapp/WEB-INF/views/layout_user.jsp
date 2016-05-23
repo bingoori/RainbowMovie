@@ -327,29 +327,21 @@
 		});
 	});
 	
-	
 	/* $(window).on("popstate", function(event) {
-	    var data = event.originalEvent.state;  // 이부분으로 뒤로가기 할때마다 아까 저장한 히스토리 스택에 쌓인 URL을 불러 온다
-	    alert(data.data);
-	    alert(data.url);
-	    if(data){ 
-	    	location.href = data.url;
-	    	// 데이터가 있으면 해당 데이터를 ajax로 다시 요청해 화면에 뿌려준다!!!!
-			// 아래 코드는 필자가 켄도UI의 스플리터기능으로 화면을 뿌려주기에  작성한 것이다
-			// 다른 사람들은 각자 화면을 요청하는 AJAX펑션을 넣으면 되겠다.
-	    } else{
-	    	// 히스토리에 정보가 없을경우 메인화면으로 보내준다. 
-	    	location.href = "${context}/";
-	    }
-   });
-	
-	$(document).ready(function() {
-	    jQuery(document).ready(function($) {
-	    	
-	    	$(window).on("beforeunload", function () {
-	            return "영화 예매를 취소하시겠습니까?";  // 페이지를 벗어나는 경우
-	        });
-	    });
-	}); */
+    var data = event.originalEvent.state;  // 이부분으로 뒤로가기 할때마다 아까 저장한 히스토리 스택에 쌓인 URL을 불러 온다
+    alert(data.data);
+    alert(data.url);
+    if(data){ 
+    	location.href = data.url;
+    	// 데이터가 있으면 해당 데이터를 ajax로 다시 요청해 화면에 뿌려준다!!!!
+		// 아래 코드는 필자가 켄도UI의 스플리터기능으로 화면을 뿌려주기에  작성한 것이다
+		// 다른 사람들은 각자 화면을 요청하는 AJAX펑션을 넣으면 되겠다.
+    } else{
+    	// 히스토리에 정보가 없을경우 메인화면으로 보내준다. 
+    	location.href = "${context}/";
+    }
+});*/
+
+ 
 </script>
 </html>
